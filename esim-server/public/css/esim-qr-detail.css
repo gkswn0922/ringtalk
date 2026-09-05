@@ -1,0 +1,613 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 배경과 비행기 */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    z-index: -1;
+}
+
+.airplane {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    font-size: 24px;
+    color: white;
+    opacity: 0.8;
+    animation: fly 3s ease-in-out infinite;
+}
+
+@keyframes fly {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-10px); }
+}
+
+/* eSIM 설치방법 보기 버튼 */
+.install-guide-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.install-guide-btn button {
+    background: #2d3436;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.install-guide-btn button:hover {
+    background: #636e72;
+    transform: translateY(-1px);
+}
+
+/* 메인 카드 */
+.main-card {
+    background: white;
+    margin: 80px 20px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* QR 코드 섹션 */
+.qr-section {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.esim-info {
+    flex: 1;
+    display: flex;
+    gap: 16px;
+}
+
+.esim-logo {
+    flex-shrink: 0;
+}
+
+.esim-icon {
+    width: 40px;
+    height: 40px;
+    background: #74b9ff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.esim-content {
+    flex: 1;
+    text-align: left;
+    margin-left: -40%;
+}
+
+.esim-content h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.esim-content p {
+    font-size: 14px;
+    color: #2d3436;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.customer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-item .label {
+    font-size: 14px;
+    color: #636e72;
+    font-weight: 500;
+    min-width: 60px;
+}
+
+.info-item .value {
+    font-size: 14px;
+    color: #2d3436;
+    font-weight: 600;
+}
+
+.qr-code-container {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qrCode {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    padding: 8px;
+}
+
+/* 구분선 */
+.divider {
+    height: 1px;
+    background: repeating-linear-gradient(
+        to right,
+        #bdc3c7 0,
+        #bdc3c7 8px,
+        transparent 8px,
+        transparent 12px
+    );
+    margin: 0 24px;
+    border: none;
+}
+
+/* 기기별 활성화 코드 섹션 */
+.device-activation-section {
+    padding: 24px;
+}
+
+.device-section {
+    margin-bottom: 24px;
+}
+
+.device-section:last-child {
+    margin-bottom: 0;
+}
+
+.device-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 16px;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+/* 입력 필드 사이 구분선 */
+.input-divider {
+    height: 1px;
+    background: repeating-linear-gradient(
+        to right,
+        #bdc3c7 0,
+        #bdc3c7 8px,
+        transparent 8px,
+        transparent 12px
+    );
+    margin: 12px 0;
+    border: none;
+}
+
+.input-group label {
+    display: block;
+    font-size: 12px;
+    color: #2d3436;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.input-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.input-container input {
+    flex: 1;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    color: #2d3436;
+    font-family: 'Courier New', monospace;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #74b9ff;
+    box-shadow: 0 0 0 2px rgba(116, 185, 255, 0.2);
+}
+
+.copy-btn {
+    background: #74b9ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.copy-btn:hover {
+    background: #0984e3;
+    transform: translateY(-1px);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+/* 사용 정보 섹션 */
+.usage-info-section {
+    padding: 24px;
+    background: #f8f9fa;
+}
+
+.usage-status {
+    margin-bottom: 12px;
+}
+
+.usage-status p {
+    font-size: 14px;
+    color: #636e72;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.status {
+    color: #e17055;
+    font-weight: 600;
+}
+
+.usage-stats {
+    margin-bottom: 16px;
+}
+
+.usage-stats p {
+    font-size: 14px;
+    color: #636e72;
+    text-align: center;
+}
+
+.usage-amount {
+    font-weight: 700;
+    color: #2d3436;
+}
+
+.data-bar-container {
+    margin-bottom: 12px;
+}
+
+.data-bar {
+    background: #74b9ff;
+    height: 32px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-remaining {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1;
+    position: relative;
+}
+
+.usage-note {
+    text-align: center;
+}
+
+.usage-note p {
+    font-size: 12px;
+    color: #95a5a6;
+    line-height: 1.3;
+}
+
+/* 푸터 */
+.footer {
+    background: #2d3436;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.footer-time,
+.footer-phone {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.guide-section {
+    margin-bottom: 24px;
+}
+
+.guide-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.guide-section ol, .guide-section ul {
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+.guide-section li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* 복사 성공 피드백 */
+.copy-success {
+    background: #00b894 !important;
+    transform: scale(1.05);
+}
+
+/* 토스트 메시지 */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 10000;
+    animation: toastSlideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes toastSlideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes toastSlideDown {
+    from {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .qr-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .esim-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .qr-code-container {
+        margin-top: 16px;
+        margin-left: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-card {
+        margin: 60px 16px 16px;
+    }
+    
+    .qr-section {
+        padding: 20px;
+    }
+    
+    .device-activation-section,
+    .usage-info-section {
+        padding: 20px;
+    }
+    
+    .footer {
+        padding: 16px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .footer-column {
+        margin-bottom: 8px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .install-guide-btn {
+        top: 16px;
+        right: 16px;
+    }
+    
+    .install-guide-btn button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .input-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .copy-btn {
+        align-self: stretch;
+    }
+}
+
+@media (max-width: 360px) {
+    .main-card {
+        margin: 50px 12px 12px;
+    }
+    
+    .qr-section,
+    .device-activation-section,
+    .usage-info-section {
+        padding: 16px;
+    }
+    
+    .esim-content h1 {
+        text-align: left;
+        font-size: 18px;
+    }
+    
+    .device-section h3 {
+        font-size: 14px;
+    }
+}

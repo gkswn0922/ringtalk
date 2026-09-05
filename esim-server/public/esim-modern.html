@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSIM 활성화 - RingTalk</title>
+    <link rel="stylesheet" href="/css/esim-modern.css">
+    <script src="/js/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- 배경 그라데이션 -->
+    <div class="background-gradient"></div>
+    
+    <!-- 상단 네비게이션 -->
+    <div class="top-nav">
+        <button class="back-btn" onclick="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h1 class="nav-title">eSIM 활성화</h1>
+        <button class="help-btn" onclick="openHelp()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 상태 카드 -->
+        <div class="status-card">
+            <div class="status-header">
+                <div class="esim-badge">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+                        <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>eSIM</span>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>활성화 준비 완료</span>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <div class="qr-info">
+                    <h2>QR 코드가 도착했어요!</h2>
+                    <p>아래 QR 코드를 스캔하여 eSIM을 설치하세요</p>
+                    
+                    <div class="customer-details">
+                        <div class="detail-item">
+                            <span class="label">ICCID</span>
+                            <span class="value" id="iccid">89882470000012345678</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">고객명</span>
+                            <span class="value" id="customerName">홍길동</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="qr-container">
+                    <div class="qr-wrapper">
+                        <canvas id="qrCode" width="160" height="160"></canvas>
+                    </div>
+                    <button class="qr-action-btn" onclick="enlargeQR()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        확대보기
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 기기별 설정 섹션 -->
+        <div class="device-section">
+            <h3>기기별 설정 방법</h3>
+            
+            <!-- iOS 설정 -->
+            <div class="device-card">
+                <div class="device-header">
+                    <div class="device-icon ios">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="device-info">
+                        <h4>iOS (아이폰)</h4>
+                        <p>설정 → 셀룰러 → eSIM 추가</p>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>SM-DP+ 주소</label>
+                    <div class="input-container">
+                        <input type="text" id="iosSmDp" value="rsp.esimcase.com" readonly>
+                        <button class="copy-btn" onclick="copyToClipboard('iosSmDp')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>활성화 코드</label>
+                    <div class="input-container">
+                        <input type="text" id="iosActivationCode" value="$H28E-3U6QI-O513K-90TON" readonly>
+                        <button class="copy-btn" onclick="copyToClipboard('iosActivationCode')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Android 설정 -->
+            <div class="device-card">
+                <div class="device-header">
+                    <div class="device-icon android">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.6818 12 7.6818s-3.5902.5621-5.1367 1.6649L4.841 5.8437a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="device-info">
+                        <h4>Android (갤럭시)</h4>
+                        <p>설정 → 연결 → SIM 카드 관리자</p>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>활성화 코드</label>
+                    <div class="input-container">
+                        <input type="text" id="aosActivationCode" value="LPA:1$rsp.esimcase.com$H28E-3U6QI-O513K-90TON" readonly>
+                        <button class="copy-btn" onclick="copyToClipboard('aosActivationCode')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사용량 정보 -->
+        <div class="usage-section">
+            <div class="usage-header">
+                <h3>데이터 사용량</h3>
+                <div class="usage-status">
+                    <div class="status-badge inactive">활성화 전</div>
+                </div>
+            </div>
+            
+            <div class="usage-stats">
+                <div class="stat-item">
+                    <span class="stat-label">누적 사용량</span>
+                    <span class="stat-value">0.00 GB</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">잔여 데이터</span>
+                    <span class="stat-value">1.00 GB</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+                <div class="progress-text">잔여 데이터 1.00GB</div>
+            </div>
+            
+            <div class="usage-note">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>실제 사용량과 다소 차이가 있을 수 있습니다</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 고정 버튼 -->
+    <div class="bottom-actions">
+        <button class="primary-btn" onclick="openInstallGuide()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+                <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+                <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+                <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            설치 가이드 보기
+        </button>
+    </div>
+
+    <!-- 도움말 모달 -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>eSIM 설치 가이드</h2>
+                <button class="close-btn" onclick="closeModal('helpModal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+                        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-section">
+                    <h3>📱 iOS (아이폰) 설정 방법</h3>
+                    <ol>
+                        <li>설정 → 셀룰러 → eSIM 추가</li>
+                        <li>"QR 코드 사용" 선택</li>
+                        <li>위의 QR 코드를 스캔하거나</li>
+                        <li>"세부사항을 수동으로 입력" 선택 후</li>
+                        <li>SM-DP+ 주소와 활성화 코드 입력</li>
+                    </ol>
+                </div>
+                <div class="guide-section">
+                    <h3>📱 Android (갤럭시) 설정 방법</h3>
+                    <ol>
+                        <li>설정 → 연결 → SIM 카드 관리자</li>
+                        <li>"모바일 요금제 추가"</li>
+                        <li>QR 코드를 스캔하거나</li>
+                        <li>"수동으로 입력" 선택 후</li>
+                        <li>활성화 코드 입력</li>
+                    </ol>
+                </div>
+                <div class="guide-section">
+                    <h3>⚠️ 주의사항</h3>
+                    <ul>
+                        <li>인터넷 연결이 필요합니다</li>
+                        <li>eSIM 지원 기기에서만 사용 가능</li>
+                        <li>한 번 설치하면 다른 기기로 이동 불가</li>
+                        <li>데이터 소진 시 자동 차단됩니다</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/esim-modern.js"></script>
+</body>
+</html>

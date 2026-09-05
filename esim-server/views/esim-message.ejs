@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; text-align: center; padding: 50px; }
+    .error { color: #e74c3c; }
+    .not-found { color: #7f8c8d; }
+  </style>
+</head>
+<body>
+  <h1 class="<%= headingClass %>"><%= heading %></h1>
+  <% lines.forEach(function(line) { %>
+  <p><%= line %></p>
+  <% }); %>
+</body>
+</html>

@@ -1,0 +1,38 @@
+// 온라인 Java 컴파일러에서 실행할 수 있는 전체 코드
+// 사이트: https://www.jdoodle.com/online-java-compiler/ 등에서 테스트 가능
+
+import java.util.Base64;
+import java.nio.charset.StandardCharsets;
+
+// BCrypt 클래스를 단순화한 버전 (테스트용)
+class BCrypt {
+    public static String hashpw(String password, String salt) {
+        // 실제 BCrypt 대신 단순한 해시 시뮬레이션
+        return salt + password.hashCode();
+    }
+}
+
+public class SignatureGenerator {
+    public static String generateSignature(String clientId, String clientSecret, Long timestamp) {
+        // 밑줄로 연결하여 password 생성
+        String password = clientId + "_" + timestamp;
+        // bcrypt 해싱
+        String hashedPw = BCrypt.hashpw(password, clientSecret);
+        // base64 인코딩
+        return Base64.getUrlEncoder().encodeToString(hashedPw.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static void main(String args[]) {
+        String clientId = "YOUR_NAVER_CLIENT_ID";
+        String clientSecret = "YOUR_NAVER_CLIENT_SECRET";
+        Long timestamp = System.currentTimeMillis();
+        
+        System.out.println("ClientId: " + clientId);
+        System.out.println("ClientSecret: " + clientSecret);
+        System.out.println("Timestamp: " + timestamp);
+        System.out.println("Password: " + clientId + "_" + timestamp);
+        System.out.println("Signature: " + generateSignature(clientId, clientSecret, timestamp));
+    }
+}
+
+

@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>eSIM Activation Poster (Demo)</title>
+
+  <!-- QRCode.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root{
+      --bg-start: #dbf0f8;
+      --bg-end: #9ad2e6;
+      --card-border: #e6eef3;
+      --accent: #2d6ea7;
+      --muted: #6b7a86;
+      --panel-bg: #fff;
+      --rounded: 18px;
+      --container-width: 900px;
+    }
+
+    body {
+      font-family: "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #e9f6fb 0%, #d7eef6 100%);
+      color: #123;
+      display:flex;
+      justify-content:center;
+      padding: 24px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Two layout variants: .layout-tall (default) and .layout-short */
+    .poster {
+      width: var(--container-width);
+      max-width: 96vw;
+      background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(16,40,60,0.15);
+      padding: 28px;
+      position: relative;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+
+    /* Smaller poster variant */
+    .poster.short {
+      height: 940px;
+    }
+
+    /* Tall poster */
+    .poster.tall {
+      height: 1150px;
+    }
+
+    /* airplane silhouette top-left */
+    .airplane {
+      position:absolute;
+      left: 24px;
+      top: 18px;
+      width: 110px;
+      height: 60px;
+      opacity: 0.95;
+      fill: rgba(255,255,255,0.85);
+      transform: translateY(0);
+    }
+
+    /* top right CTA button */
+    .cta {
+      position:absolute;
+      right: 24px;
+      top: 18px;
+      background: rgba(22,58,92,0.95);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 22px;
+      font-weight:600;
+      font-size:14px;
+    }
+
+    .content {
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap: 18px;
+      margin-top: 86px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94));
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(20,60,90,0.06);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .usage {
+      text-align:center;
+      padding: 18px;
+    }
+
+    .usage .top-note {
+      font-size:14px;
+      color: var(--muted);
+      margin-bottom:8px;
+      font-weight:600;
+    }
+
+    .usage .big {
+      font-size:20px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .data-bar {
+      margin: 12px auto 0;
+      width: 80%;
+      height: 28px;
+      background: linear-gradient(90deg, #dbeef6, #bfe6f4);
+      border-radius: 20px;
+      position:relative;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .data-bar .fill {
+      height:100%;
+      width:40%;
+      background: linear-gradient(90deg, #7abeda, #4f98c7);
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
+      transition: width 400ms ease;
+    }
+
+    /* form-like fields */
+    .fields {
+      display:flex;
+      gap: 16px;
+      flex-direction:column;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field label {
+      font-size:13px;
+      color:#3b4b56;
+      font-weight:700;
+    }
+
+    .input-box {
+      border-radius:12px;
+      border:1px solid rgba(20,60,90,0.08);
+      padding:12px 14px;
+      background: linear-gradient(180deg,#fff,#fbfeff);
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      color:#0b2b3a;
+      font-weight:600;
+    }
+
+    .dotted-divider {
+      border-top: 2px dashed rgba(0,0,0,0.08);
+      margin: 8px 0 0 0;
+    }
+
+    /* two-column layout for fields + QR */
+    .main-grid {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px;
+      align-items:start;
+    }
+
+    /* QR panel */
+    .qr-panel {
+      background: linear-gradient(180deg,#ffffff,#f6fbff);
+      border-radius:12px;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-start;
+      min-height:280px;
+      text-align:left;
+    }
+
+    .qr-title {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      width:100%;
+    }
+
+    .qr-badge{
+      background:#eef8ff;
+      color:#16405f;
+      padding:6px 10px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:13px;
+      border: 1px solid rgba(20,60,90,0.06);
+    }
+
+    .qr-instructions {
+      color: #274b61;
+      font-weight:700;
+      font-size:18px;
+      margin-left:6px;
+    }
+
+    .qr-block {
+      display:flex;
+      gap:12px;
+      width:100%;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .qr-canvas {
+      width:160px;
+      height:160px;
+      background: #fff;
+      padding:6px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(0,0,0,0.06);
+    }
+
+    .iccid {
+      font-size:13px;
+      color:#133a4d;
+      font-weight:700;
+    }
+
+    .footer {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background: linear-gradient(180deg,#2b4e6f,#21445f);
+      color:#fff;
+      padding:14px 18px;
+      border-radius:12px;
+      margin-top:18px;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .footer .col { text-align:center; min-width:120px; }
+    .footer .hours { font-weight:600; font-size:12px; color:#bfe0f2; margin-top:6px; }
+
+    /* small screen adjustments */
+    @media (max-width:920px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .qr-panel { order: -1; width:100%; }
+    }
+
+    /* small helper controls (for demo) */
+    .controls {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 8px 24px rgba(10,30,60,0.12);
+      padding:12px;
+      z-index:999;
+      font-size:13px;
+    }
+    .controls label{font-weight:700; font-size:12px; color:#234;}
+    .controls input, .controls textarea { width:260px; padding:8px; margin-top:6px; border-radius:8px; border:1px solid #ddd; font-size:13px;}
+    .controls button { margin-top:8px; background:#16608f; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700;}
+    .controls .small { width:120px; display:inline-block; margin-right:8px; padding:8px; }
+
+    /* print-friendly */
+    @media print {
+      body { background:#fff; }
+      .controls { display:none; }
+      .poster { box-shadow:none; border:none; margin:0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="poster tall" role="article" aria-label="eSIM Activation Poster">
+    <!-- airplane svg -->
+    <svg class="airplane" viewBox="0 0 200 100" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+      <path d="M8 80c1 0 35-11 42-12 7-1 26-1 30-4 4-3 14-18 24-25 10-8 26-12 37-11 11 1 39 9 47 13 8 3 15 5 19 5 4 0 6-3 6-7-1-8-11-22-23-26-12-5-28-14-43-19-15-4-41-7-56-7-14 0-39 5-48 13-9 8-30 36-39 44C2 52 0 80 2 84c1 3 4 5 6 5z" />
+    </svg>
+
+    <div class="cta">eSIM 설치방법 보기</div>
+
+    <div class="content">
+      <!-- Top usage panel -->
+      <div class="panel usage" aria-hidden="false">
+        <div class="top-note">상품 사용시간(한국시간 기준) 상품 활성화 전 입니다!</div>
+        <div class="big">누적 사용량 <span id="usedGb">0.00</span> GB</div>
+
+        <div class="data-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+          <div class="fill" id="dataFill">잔여 데이터 1.00GB</div>
+        </div>
+        <div style="font-size:12px; color:var(--muted); margin-top:8px;">실 사용량과 다소 차이가 있을 수 있습니다.</div>
+      </div>
+
+      <!-- Main content grid: fields + QR -->
+      <div class="main-grid">
+        <div class="panel">
+          <!-- QR top area (variant for second image too) -->
+          <div class="qr-top" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:6px;">
+            <div style="background:#eef8ff; padding:6px 10px; border-radius:12px; font-weight:800; font-size:13px; color:#16405f;">eSIM</div>
+            <div style="font-weight:800; color:#16405f; font-size:18px;">QR 코드가 도착했어요!</div>
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <div style="color:#274b61; font-weight:700;">우측 QR코드를 스캔해서 설치하세요.</div>
+            <div style="margin-top:8px; color:#133a4d; font-weight:700;">ICCID: <span id="iccidDisplay">-</span></div>
+            <div style="color:#133a4d; font-weight:700; margin-top:6px;">고객명: <span id="customerDisplay">-</span></div>
+          </div>
+
+          <div class="dotted-divider" aria-hidden="true"></div>
+
+          <div style="margin-top:14px;" class="fields">
+            <div class="field">
+              <label>IOS 아이폰</label>
+              <div class="input-box">SM-DP+주소: <span id="smdpDisplay" style="margin-left:8px; font-weight:700;">-</span></div>
+            </div>
+
+            <div class="field">
+              <label>활성화 코드</label>
+              <div class="input-box" id="iosCodeDisplay">-</div>
+            </div>
+
+            <div class="field">
+              <label>AOS 갤럭시</label>
+              <div class="input-box">-</div>
+            </div>
+
+            <div class="field">
+              <label>활성화 코드</label>
+              <div class="input-box" id="aosCodeDisplay">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR panel on right -->
+        <div class="qr-panel panel" aria-label="QR and details">
+          <div class="qr-title">
+            <div class="qr-badge">eSIM</div>
+            <div class="qr-instructions">QR 코드가 도착했어요!</div>
+          </div>
+
+          <div class="qr-block">
+            <div class="qr-canvas" id="qrcode"></div>
+
+            <div style="flex:1; padding-left:6px;">
+              <div class="iccid"><strong>ICCID :</strong><div id="iccidRight" style="margin-top:8px; color:#2b4e6f; font-weight:800;">-</div></div>
+              <div style="margin-top:12px; color:#3a5567; font-weight:700;">고객명 : <div id="customerRight" style="margin-top:6px; color:#1b394a; font-weight:800;">-</div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:10px; font-size:13px; color:#456b7f; font-weight:700;">우측 QR코드를 스캔해서 설치하세요.</div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer" role="contentinfo">
+        <div class="col">
+          카톡(한국시간)
+          <div class="hours">09:00-23:00</div>
+        </div>
+
+        <div class="col">
+          고객센터 운영시간
+          <div class="hours">0000-0000</div>
+        </div>
+
+        <div class="col">
+          카톡(한국시간)
+          <div class="hours">09:00-23:00</div>
+        </div>
+      </div>
+
+    </div><!-- content -->
+  </div>
+
+  <!-- Controls for demo / editing -->
+  <div class="controls" aria-hidden="false">
+    <label>ICCID</label>
+    <input id="iccidInput" placeholder="예: 89860123456789012345" />
+
+    <label style="margin-top:8px;">고객명</label>
+    <input id="customerInput" placeholder="홍길동" />
+
+    <label style="margin-top:8px;">SM-DP+ 주소</label>
+    <input id="smdpInput" placeholder="https://smdp.example.com" />
+
+    <label style="margin-top:8px;">iOS 활성화 코드</label>
+    <input id="iosCodeInput" placeholder="ACT-XXXX-XXXX" />
+
+    <label style="margin-top:8px;">AOS 활성화 코드</label>
+    <input id="aosCodeInput" placeholder="ACT-YYYY-YYYY" />
+
+    <div style="margin-top:10px;">
+      <button id="applyBtn" class="small">적용</button>
+      <button id="toggleLayout" class="small" style="background:#2b516f">Change Layout</button>
+      <button id="printBtn" class="small" style="background:#0f6a3a">Print</button>
+    </div>
+
+    <div style="margin-top:10px; font-size:12px; color:#666;">Tip: 입력 후 "적용"을 누르면 QR과 텍스트가 업데이트됩니다.</div>
+  </div>
+
+  <script>
+    // Initial data
+    const defaultData = {
+      iccid: '',
+      customer: '',
+      smdp: '',
+      iosCode: '',
+      aosCode: '',
+      usedGb: 0.00,
+      remainingGb: 1.00
+    };
+
+    // DOM refs
+    const iccidInput = document.getElementById('iccidInput');
+    const customerInput = document.getElementById('customerInput');
+    const smdpInput = document.getElementById('smdpInput');
+    const iosCodeInput = document.getElementById('iosCodeInput');
+    const aosCodeInput = document.getElementById('aosCodeInput');
+
+    const applyBtn = document.getElementById('applyBtn');
+    const printBtn = document.getElementById('printBtn');
+    const toggleLayout = document.getElementById('toggleLayout');
+
+    const iccidDisplay = document.getElementById('iccidDisplay');
+    const customerDisplay = document.getElementById('customerDisplay');
+    const smdpDisplay = document.getElementById('smdpDisplay');
+    const iosCodeDisplay = document.getElementById('iosCodeDisplay');
+    const aosCodeDisplay = document.getElementById('aosCodeDisplay');
+
+    const iccidRight = document.getElementById('iccidRight');
+    const customerRight = document.getElementById('customerRight');
+
+    const usedGbEl = document.getElementById('usedGb');
+    const dataFill = document.getElementById('dataFill');
+
+    const poster = document.getElementById('app');
+
+    // Create QR code instance (uses qrcodejs)
+    const qrContainer = document.getElementById('qrcode');
+    // qrcodejs will create a child canvas or img inside qrContainer
+    let qr;
+
+    function generateQRCode(text) {
+      // clear
+      qrContainer.innerHTML = '';
+      if (!text) {
+        // placeholder QR image (simple)
+        const placeholder = document.createElement('div');
+        placeholder.style.width = '120px';
+        placeholder.style.height = '120px';
+        placeholder.style.background = 'linear-gradient(135deg,#eef6fb,#cfeaf8)';
+        placeholder.style.borderRadius = '6px';
+        placeholder.style.display = 'flex';
+        placeholder.style.alignItems = 'center';
+        placeholder.style.justifyContent = 'center';
+        placeholder.style.color = '#2b4e6f';
+        placeholder.style.fontWeight = '700';
+        placeholder.innerText = 'QR';
+        qrContainer.appendChild(placeholder);
+        return;
+      }
+
+      qr = new QRCode(qrContainer, {
+        text: text,
+        width: 160,
+        height: 160,
+        colorDark: "#0b2b3a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Apply data to UI
+    function applyData(data) {
+      const iccid = data.iccid || '-';
+      const customer = data.customer || '-';
+      const smdp = data.smdp || '-';
+      const ios = data.iosCode || '-';
+      const aos = data.aosCode || '-';
+
+      iccidDisplay.textContent = iccid;
+      customerDisplay.textContent = customer;
+      smdpDisplay.textContent = smdp;
+      iosCodeDisplay.textContent = ios;
+      aosCodeDisplay.textContent = aos;
+
+      iccidRight.textContent = iccid;
+      customerRight.textContent = customer;
+
+      usedGbEl.textContent = (data.usedGb !== undefined ? data.usedGb.toFixed(2) : '0.00');
+
+      // update data bar based on remainingGb relative to total 1.00GB (demo)
+      const total = 1.00;
+      let percent = 0;
+      if (typeof data.remainingGb === 'number') {
+        percent = Math.max(0, Math.min(100, (data.remainingGb / total) * 100));
+      } else {
+        percent = 100;
+      }
+      const fillEl = dataFill;
+      fillEl.style.width = percent + '%';
+      fillEl.textContent = '잔여 데이터 ' + (data.remainingGb !== undefined ? data.remainingGb.toFixed(2) : '1.00') + 'GB';
+      // accessibility attr
+      const bar = document.querySelector('.data-bar');
+      bar.setAttribute('aria-valuenow', Math.round(percent));
+
+      // generate QR from ICCID (if exists) or from a small payload like "iccid:...,customer:..."
+      if (data.iccid) {
+        generateQRCode('ICCID:' + data.iccid + ';NAME:' + (data.customer || ''));
+      } else {
+        generateQRCode('');
+      }
+    }
+
+    // initial render
+    applyData(defaultData);
+
+    applyBtn.addEventListener('click', () => {
+      const d = {
+        iccid: iccidInput.value.trim(),
+        customer: customerInput.value.trim(),
+        smdp: smdpInput.value.trim(),
+        iosCode: iosCodeInput.value.trim(),
+        aosCode: aosCodeInput.value.trim(),
+        usedGb: 0.00,
+        remainingGb: 1.00
+      };
+      // Simple validation example
+      if (d.iccid && d.iccid.length < 10) {
+        alert('ICCID가 너무 짧습니다. 올바른 값을 입력하세요.');
+        return;
+      }
+      applyData(d);
+    });
+
+    toggleLayout.addEventListener('click', () => {
+      if (poster.classList.contains('tall')) {
+        poster.classList.remove('tall');
+        poster.classList.add('short');
+        toggleLayout.textContent = 'Change Layout';
+      } else {
+        poster.classList.remove('short');
+        poster.classList.add('tall');
+        toggleLayout.textContent = 'Change Layout';
+      }
+    });
+
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+
+    // allow pressing Enter in inputs to apply quickly
+    [iccidInput, customerInput, smdpInput, iosCodeInput, aosCodeInput].forEach(el => {
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') {
+          applyBtn.click();
+        }
+      });
+    });
+
+    // Mobile orientation friendly: adjust container width smaller
+    function adjustContainerWidth() {
+      const w = window.innerWidth;
+      if (w < 640) {
+        document.documentElement.style.setProperty('--container-width', (w - 24) + 'px');
+      } else {
+        document.documentElement.style.setProperty('--container-width', '900px');
+      }
+    }
+    window.addEventListener('resize', adjustContainerWidth);
+    adjustContainerWidth();
+
+    // Example: Pre-fill demo values for quick preview
+    iccidInput.value = '89860123456789012345';
+    customerInput.value = '홍길동';
+    smdpInput.value = 'https://smdp.example.com';
+    iosCodeInput.value = 'ACT-ABCD-1234';
+    aosCodeInput.value = 'ACT-XYZA-9876';
+    applyBtn.click();
+  </script>
+</body>
+</html>

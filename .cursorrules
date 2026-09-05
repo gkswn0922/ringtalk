@@ -1,0 +1,317 @@
+# shadcn-vue 컴포넌트별 Cursor Rules
+
+이 파일은 shadcn-vue 컴포넌트를 사용할 때 Cursor AI가 따라야 할 규칙들을 정의합니다.
+
+## 일반적인 Vue 3 + shadcn-vue 개발 규칙
+
+### 기본 설정
+- Vue 3 Composition API 사용 필수
+- TypeScript 지원 권장
+- Tailwind CSS를 스타일링 프레임워크로 사용
+- 컴포넌트는 재사용 가능하도록 설계
+- 접근성(a11y) 고려 필수
+
+### 코드 스타일
+- 컴포넌트명은 PascalCase 사용
+- 파일명은 kebab-case 사용
+- props는 명시적 타입 정의
+- emit 이벤트는 kebab-case 사용
+- ref와 reactive 적절히 구분 사용
+
+## 컴포넌트별 Cursor Rules
+
+### 1. Button 컴포넌트
+```vue
+<!-- 기본 버튼 -->
+<Button variant="default" size="default" @click="handleClick">
+  버튼 텍스트
+</Button>
+
+<!-- 규칙 -->
+- variant: default, destructive, outline, secondary, ghost, link 중 선택
+- size: default, sm, lg, icon 중 선택
+- disabled 상태 처리 필수
+- loading 상태 지원 권장
+- cursor: pointer 자동 적용
+- 접근성: aria-label, role="button" 고려
+```
+
+### 2. Card 컴포넌트
+```vue
+<!-- 카드 구조 -->
+<Card>
+  <CardHeader>
+    <CardTitle>제목</CardTitle>
+    <CardDescription>설명</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <!-- 내용 -->
+  </CardContent>
+  <CardFooter>
+    <!-- 푸터 내용 -->
+  </CardFooter>
+</Card>
+
+<!-- 규칙 -->
+- CardHeader, CardContent, CardFooter는 선택적 사용
+- hover 효과는 Card 컴포넌트에 적용
+- 클릭 가능한 카드는 cursor: pointer 적용
+- 그림자와 border-radius는 기본 제공
+```
+
+### 3. Input 컴포넌트
+```vue
+<!-- 기본 입력 -->
+<Input 
+  v-model="value" 
+  type="text" 
+  placeholder="입력하세요"
+  :disabled="false"
+/>
+
+<!-- 규칙 -->
+- v-model 양방향 바인딩 필수
+- placeholder는 사용자 가이드 제공
+- disabled 상태 스타일링 자동 적용
+- focus 상태 시 border 색상 변경
+- 에러 상태 지원 (error prop)
+- 접근성: aria-describedby, aria-invalid 고려
+```
+
+### 4. Dialog 컴포넌트
+```vue
+<!-- 모달 다이얼로그 -->
+<Dialog v-model:open="isOpen">
+  <DialogTrigger asChild>
+    <Button>열기</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>제목</DialogTitle>
+      <DialogDescription>설명</DialogDescription>
+    </DialogHeader>
+    <!-- 내용 -->
+    <DialogFooter>
+      <Button @click="isOpen = false">닫기</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
+<!-- 규칙 -->
+- v-model:open으로 열림/닫힘 상태 관리
+- DialogTrigger는 asChild prop 사용
+- ESC 키로 닫기 기능 자동 제공
+- 배경 클릭으로 닫기 기능 자동 제공
+- 접근성: aria-modal, role="dialog" 자동 적용
+- 포커스 트랩 자동 적용
+```
+
+### 5. Form 컴포넌트
+```vue
+<!-- 폼 구조 -->
+<Form :schema="schema" @submit="onSubmit">
+  <FormField v-slot="{ componentField }" name="fieldName">
+    <FormItem>
+      <FormLabel>라벨</FormLabel>
+      <FormControl>
+        <Input v-bind="componentField" />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  </FormField>
+  <Button type="submit">제출</Button>
+</Form>
+
+<!-- 규칙 -->
+- zod 스키마 사용 권장
+- FormField는 v-slot으로 필드 바인딩
+- FormMessage는 에러 메시지 자동 표시
+- 유효성 검사는 스키마 기반으로 자동 처리
+- 접근성: aria-describedby 자동 연결
+```
+
+### 6. Select 컴포넌트
+```vue
+<!-- 셀렉트 박스 -->
+<Select v-model="selected">
+  <SelectTrigger>
+    <SelectValue placeholder="선택하세요" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="option1">옵션 1</SelectItem>
+    <SelectItem value="option2">옵션 2</SelectItem>
+  </SelectContent>
+</Select>
+
+<!-- 규칙 -->
+- v-model로 선택값 관리
+- SelectTrigger는 클릭 영역
+- SelectValue는 선택된 값 표시
+- SelectContent는 드롭다운 내용
+- 키보드 네비게이션 자동 지원
+- 접근성: aria-expanded, role="combobox" 자동 적용
+```
+
+### 7. Table 컴포넌트
+```vue
+<!-- 테이블 구조 -->
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>헤더 1</TableHead>
+      <TableHead>헤더 2</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow v-for="item in items" :key="item.id">
+      <TableCell>{{ item.value1 }}</TableCell>
+      <TableCell>{{ item.value2 }}</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<!-- 규칙 -->
+- TableHeader, TableBody는 필수
+- TableRow는 반복 렌더링
+- TableHead는 정렬 가능하게 구현 권장
+- TableCell은 데이터 표시
+- 반응형 테이블은 별도 처리 필요
+- 접근성: scope="col", scope="row" 자동 적용
+```
+
+### 8. Toast 컴포넌트
+```vue
+<!-- 토스트 사용 -->
+<script setup>
+import { useToast } from '@/components/ui/toast/use-toast'
+
+const { toast } = useToast()
+
+const showToast = () => {
+  toast({
+    title: "성공",
+    description: "작업이 완료되었습니다.",
+    variant: "default"
+  })
+}
+</script>
+
+<!-- 규칙 -->
+- useToast composable 사용
+- title과 description은 필수
+- variant: default, destructive 중 선택
+- 자동 사라짐 시간 설정 가능
+- 접근성: role="alert" 자동 적용
+- 애니메이션 효과 자동 제공
+```
+
+### 9. Badge 컴포넌트
+```vue
+<!-- 배지 -->
+<Badge variant="default">기본</Badge>
+<Badge variant="secondary">보조</Badge>
+<Badge variant="destructive">경고</Badge>
+<Badge variant="outline">아웃라인</Badge>
+
+<!-- 규칙 -->
+- variant로 스타일 구분
+- 텍스트는 짧게 유지
+- 색상은 의미에 맞게 사용
+- 접근성: role="status" 고려
+```
+
+### 10. Avatar 컴포넌트
+```vue
+<!-- 아바타 -->
+<Avatar>
+  <AvatarImage src="/path/to/image.jpg" alt="사용자" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+
+<!-- 규칙 -->
+- AvatarImage는 이미지 소스
+- AvatarFallback은 이미지 로드 실패 시 표시
+- alt 텍스트는 접근성을 위해 필수
+- 원형 모양 자동 적용
+- 크기는 size prop으로 조절
+```
+
+## 스타일링 규칙
+
+### Tailwind CSS 사용
+- shadcn-vue는 Tailwind CSS 기반
+- 커스텀 색상은 CSS 변수로 정의
+- 다크 모드 지원을 위한 dark: 접두사 사용
+- 반응형 디자인은 sm:, md:, lg: 접두사 사용
+
+### CSS 변수 활용
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  /* ... */
+}
+```
+
+### 애니메이션
+- shadcn-vue는 Framer Motion 기반 애니메이션 제공
+- 커스텀 애니메이션은 Tailwind의 transition 클래스 사용
+- hover, focus 상태의 부드러운 전환 효과 적용
+
+## 접근성 규칙
+
+### ARIA 속성
+- 모든 인터랙티브 요소에 적절한 ARIA 속성 추가
+- 라벨과 입력 요소 연결 (aria-labelledby, aria-describedby)
+- 상태 변경 시 aria-live 영역 사용
+
+### 키보드 네비게이션
+- Tab 순서 논리적 구성
+- Enter, Space 키로 버튼 활성화
+- Escape 키로 모달/드롭다운 닫기
+- 화살표 키로 메뉴/리스트 네비게이션
+
+### 색상 대비
+- WCAG 2.1 AA 기준 준수
+- 색상만으로 정보 전달하지 않기
+- 포커스 표시기 명확하게 제공
+
+## 성능 최적화 규칙
+
+### 컴포넌트 최적화
+- v-memo로 불필요한 리렌더링 방지
+- computed로 파생 상태 관리
+- watch 대신 watchEffect 적절히 사용
+
+### 번들 최적화
+- Tree-shaking을 위한 named import 사용
+- 동적 import로 코드 스플리팅
+- 이미지 최적화 (WebP, lazy loading)
+
+## 테스팅 규칙
+
+### 단위 테스트
+- Vue Test Utils 사용
+- 컴포넌트의 props, events, slots 테스트
+- 접근성 테스트 포함
+
+### E2E 테스트
+- Playwright 또는 Cypress 사용
+- 사용자 시나리오 기반 테스트
+- 다양한 브라우저에서 테스트
+
+## 배포 규칙
+
+### 빌드 최적화
+- Vite 사용 권장
+- 환경별 설정 분리
+- 소스맵은 개발 환경에서만 생성
+
+### CDN 및 캐싱
+- 정적 자산은 CDN 사용
+- 적절한 캐시 헤더 설정
+- 버전 관리로 캐시 무효화
+
+이 규칙들을 따라 shadcn-vue 컴포넌트를 사용하면 일관성 있고 접근 가능한 Vue.js 애플리케이션을 구축할 수 있습니다.

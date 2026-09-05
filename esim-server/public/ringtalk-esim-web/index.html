@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RingTalk eSIM 설치 설명서</title>
+
+  <!-- Inter 폰트 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- 스타일 -->
+  <link rel="stylesheet" href="/ringtalk-esim-web/style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 -->
+    <header class="header">
+      <h1 class="logo" aria-label="RingTalk">
+        <img src="/ringtalk-esim-web/assets/logo-ringtalk.svg" alt="RingTalk" />
+      </h1>
+      <span class="badge">eSIM 설치 설명서</span>
+    </header>
+
+    <!-- 국가 배너 -->
+    <section class="banner">
+      <h2 class="country">
+        <span>JAPAN</span>
+        <span class="flag flag-jp" aria-hidden="true"></span>
+      </h2>
+    </section>
+
+    <!-- 본문 카드 -->
+    <section class="card">
+  <!-- 상단 유리 박스 -->
+  <div class="glass">
+    <div class="qr-and-copy">
+      <div class="qr-section">
+        <div class="chip">eSIM</div>
+        <h3>QR 코드<br>스캔하세요!</h3>
+        <p class="sub">우측 QR코드를<br>스캔해서 설치하세요.</p>
+      </div>
+      <img src="/ringtalk-esim-web/assets/qr-placeholder.png" alt="QR 코드" class="qr">
+    </div>
+
+    <div class="info">
+      <p><b>ICCID :</b> 9000 0000 0000 0000</p>
+      <p class="product-line"><b>상품명 :</b> 일본 5G무제한 / 10일</p>
+    </div>
+  </div>
+
+  <!-- ▼▼▼ 흰 패널 안에 '그룹 + 알림 + 강조 + 데이터' 모두 넣기 ▼▼▼ -->
+  <div class="panel">
+    <div class="groups">
+      <!-- 아이폰 그룹 -->
+      <div class="group group--ios">
+        <div class="group-title title--ios">아이폰</div>
+        <div class="field field--smdp"><span class="label">SM-DP+ 주소</span><button class="button">복사</button></div>
+        <div class="field field--ios-act"><span class="label">활성화 코드</span><button class="button">복사</button></div>
+      </div>
+
+      <!-- 안드로이드 그룹 -->
+      <div class="group group--android">
+        <div class="group-title title--and">안드로이드</div>
+        <div class="field field--and-act"><span class="label">활성화 코드</span><button class="button">복사</button></div>
+      </div>
+    </div>
+
+    <!-- 안내/강조/데이터도 패널 내부로 -->
+    <p class="notice">※ QR 코드 미작동 시, 수동으로 복사 붙여넣기하여 사용하세요.</p>
+    <p class="emph">상품 사용시간(한국시간 기준) 상품 활성화 전 입니다!</p>
+
+    <div class="data">
+      <div class="pill"><strong>잔여 데이터</strong><span>1.00 GB</span></div>
+      <p class="total">누적 데이터 0.00 GB</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- 푸터 (컨테이너 안) -->
+    <footer class="footer">
+      <p>카톡(한국시간) <strong>RingTalk</strong> &nbsp; 09:00~23:00</p>
+    </footer>
+  </div>
+</body>
+</html>

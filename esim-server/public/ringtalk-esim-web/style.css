@@ -1,0 +1,533 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* === RESET & BASE === */
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
+
+:root{
+  /* Colors */
+  --brand:#0076FF;
+  --brand-600:#005FCC;
+  --ink:#233B45;
+  --ink-2:#374151;
+  --muted:#7B8A97;
+  --line:#DDDDDD;
+  --bg:#FFFFFF;     /* 바깥 배경은 흰색 */
+  --card:#FFFFFF;
+
+  /* Type scale */
+  --h1:30px;
+  --h2:20px;
+  --h3:18px;
+  --body:14px;
+  --caption:12px;
+
+  /* Spacing */
+  --gap-1:6px;
+  --gap-2:10px;
+  --gap-3:14px;
+  --gap-4:18px;
+
+  /* Radius & shadow */
+  --radius-xl:24px;
+  --radius-lg:18px;
+  --radius-md:12px;
+  --shadow-1:0 8px 24px rgba(0,0,0,.08);
+}
+
+/* 페이지 전체 배경은 흰색 */
+html { background:#fff; }
+
+/* 레이아웃 */
+body{
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Pretendard, sans-serif;
+  color:var(--ink);
+}
+
+/* === LAYOUT === */
+.container{
+  width:390px;
+  max-width:95vw;
+
+  /* 컨테이너 안에서만 배경 이미지 */
+  background: url("../assets/china.png") no-repeat center top / cover;
+  /* 파일에 확장자가 없으면 위 줄을
+     background: url("assets/assetsbg") no-repeat center top / cover;
+     로 바꿔 사용하세요. */
+
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-1);
+  border:1px solid var(--line);
+  overflow:hidden;
+  position:relative;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:var(--gap-4) calc(var(--gap-4) - 2px);
+  background:linear-gradient(180deg, #e8f0ff, transparent);
+}
+
+.logo{ font-size:var(--h2); font-weight:700; letter-spacing:.2px; }
+
+.badge{
+  background:var(--brand);
+  color:#fff;
+  border-radius:10px;
+  font-size:var(--caption);
+  font-weight:700;
+  padding:6px 10px;
+}
+
+/* === BANNER === */
+.banner{ padding:10px var(--gap-4) 0; }
+.banner h2{ font-size:var(--h2); font-weight:800; letter-spacing:.3px; }
+.banner small{ font-size:var(--body); color:var(--ink-2); margin-left:4px; }
+
+/* === CARD === */
+.card{
+  margin:12px var(--gap-4) var(--gap-4);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:var(--gap-4);
+  background:#fff;
+}
+
+.qr-and-copy{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.qr-section{ flex:1; }
+
+.chip{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;          /* 필요하면 24~28px 사이로 */
+  padding: 0 10px;       /* 좌우 패딩 */
+  border-radius: 10px;   /* 둥근 정도 */
+  background: #0C3078;   /* ← 지정 색상 */
+  color: #fff;           /* 글자색 흰색 */
+  font-weight: 800;
+  font-size: 12.5px;     /* 12~13px 선호 */
+  line-height: 1;
+  letter-spacing: .2px;
+  /* 살짝 떠있는 느낌의 그림자 */
+  box-shadow: 0 6px 14px rgba(12,48,120,.18);
+  /* 위치 미세 조정 (원하면 수정) */
+  margin: 2px 0 10px 4px;  /* 위/아래 간격 */
+}
+
+.glass h3{
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Pretendard, sans-serif;
+  font-weight: 700;
+  font-size: 25px;
+  color: #173A8B;
+
+  /* ← 여기만 추가해서 오른쪽으로 Npx 이동 */
+  margin-left: 6px;   /* 4~12px 사이에서 취향껏 */
+margin-top: -6px;     /* 아래로 6px */
+}
+
+.glass .sub{
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Pretendard, sans-serif;
+  font-weight: 400;                /* Regular */
+  color: #0B2A55;                  /* 텍스트 색상 */
+  font-size: var(--body);          /* 기존 바디 크기 유지(원하면 14~16px로 바꿔도 OK) */
+  line-height: 1.5;
+
+  /* 위치 미세 조정: 위 변수값으로 조절 */
+  transform: translate(8px, 8px);
+}
+.qr{ width:120px; height:120px; border-radius:10px; border:1px solid var(--line); }
+
+.info{
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Pretendard, sans-serif;
+  transform: translate(10px, 8px);  /* ← 필요 시 px 값 조정 */
+}
+.info p{
+  margin: 8px 0;
+  font-weight: 400;      /* Regular */
+  color: #454545;        /* 값 색상 */
+  line-height: 1.5;
+  transform: translate(0px, 0px);
+}
+.info p b{
+  font-weight: 700;      /* Bold */
+  color: #173A8B;        /* 라벨 색상 */
+  letter-spacing: .2px;
+  margin-right: 4px;     /* 라벨과 값 사이 간격 */
+  transform: translate(0px, 0px);
+}
+
+.inputs{ margin-top:var(--gap-3); display:flex; flex-direction:column; gap:8px; }
+
+.field{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f3f4f6;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:10px 12px;
+}
+
+.field .label{ font-size:var(--body); color:var(--ink-2); }
+
+.button{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:8px;
+  padding:6px 10px;
+  font-size:var(--caption);
+  cursor:pointer;
+}
+.button:active{ transform:scale(.98); }
+
+.notice{ font-size:var(--caption); color:var(--muted); margin:10px 2px; }
+
+.data{ margin-top:var(--gap-2); }
+
+.pill{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#e8f2ff;
+  border:1px solid #cfe1ff;
+  border-radius:999px;
+  padding:10px 14px;
+  font-size:var(--body);
+}
+
+.total{ margin-top:8px; font-size:var(--caption); color:var(--muted); }
+
+.footer{
+  text-align:center;
+  padding:14px;
+  background:#0b1b3b;
+  color:#fff;
+  font-size:var(--caption);
+}
+
+/* card는 이제 바깥 여백만 담당 */
+.card{
+  margin:12px var(--gap-4) var(--gap-4);
+  background:transparent;
+  border:none;
+  padding:0;
+}
+
+/* 상단 유리(글래스) 박스 */
+.glass{
+  background:rgba(255,255,255,.95);
+  border:1px solid #E6E9F0;
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+
+/* 점선 구분선 */
+.cutline{
+  border:0;
+  border-top:1px dashed #D7DEE8;
+  margin:14px var(--gap-4) 10px;
+}
+
+/* 아래 흰 패널 */
+.panel{
+  background:#fff;
+  border:1px solid #E6E9F0;
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+
+/* 강조 문구 */
+.emph{
+  text-align:center;
+  font-weight:700;
+  margin:8px 0 10px;
+}
+
+/* === Logo (img) === */
+.logo{
+  display:flex;
+  align-items:center;
+  line-height:1;
+}
+.logo img{
+  width:120.286px;
+  height:60px;
+  display:block;
+  margin-top:6px;   /* 음수면 ↑, 양수면 ↓ */
+  /* filter: drop-shadow(0 0 12.381px rgba(0,0,0,.12)); */
+}
+/* ← 여기 '여분의 }' 제거! */
+
+
+/* === eSIM 배지 위치/크기 튜닝 === */
+/* 기존 .badge 규칙보다 명시도를 높여 확실히 덮어쓰기 */
+.header .badge{
+  display:inline-flex;
+  align-items:center;
+  line-height:1;
+
+  /* 크기 업 */
+  font-size:13px;        /* 13~16px 사이로 조정 가능 */
+  padding:9px 14px;      /* 세로 / 가로 패딩 */
+  border-radius:12px;
+
+  /* 오른쪽 붙은 배지를 왼쪽으로 당김 */
+  transform:translateX(-10px);  /* 음수 더 크면 더 왼쪽 */
+  /* box-shadow:0 6px 14px rgba(0,0,0,.12); */
+}
+
+/* === Country title centered with flag emoji === */
+.banner{
+  padding: 10px var(--gap-4) 0;
+  display: flex;
+  justify-content: center;   /* 가운데 정렬 */
+  align-items: center;
+}
+
+.banner .country{
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                   /* 텍스트-이모지 간격 */
+  font-size: var(--h1);       /* 크게 */
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.banner .flag{
+  font-size: calc(var(--h1) * 0.9);  /* 이모지 크기 살짝 작게 */
+  line-height: 1;
+  transform: translateY(1px);        /* 미세 수직보정 */
+}
+
+.banner small{
+  font-size: var(--body);
+  color: var(--ink-2);
+  margin-left: 2px;
+}
+
+/* === Country title centered with SVG flag === */
+.banner{
+  padding: 10px var(--gap-4) 0;
+  display: flex;
+  justify-content: center;      /* 가운데 정렬 */
+  align-items: center;
+}
+
+.banner .country{
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--h1);
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* 깃발 공통 */
+.flag{
+  display:inline-block;
+  width: 30px;                 /* ← 가로 크기(20~30px 등 자유) */
+  height: 20px;                /* ← 세로 크기(3:2 비율 권장) */
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 2px;          /* 살짝 둥글게 */
+  box-shadow: 0 0 0 1px rgba(0,0,0,.06) inset;
+  transform: translateY(1px);  /* 위/아래 미세 보정: 음수 ↑ / 양수 ↓ */
+}
+
+/* 일본 깃발 */
+.flag-jp{
+  background-image: url("assets/flag-jp.svg");
+}
+
+/* 'JP' 텍스트(국기 오른쪽 간격/크기 조정) */
+.banner small{
+  font-size: 13px;             /* 12~14px 사이로 조정 */
+  color: var(--ink-2);
+  margin-left: 6px;            /* 국기와 'JP' 사이 간격 */
+  line-height: 1;
+  transform: translateY(1px);  /* 미세 보정 */
+}
+
+/* 위 카드(유리 박스) */
+.glass{
+  position: relative;
+  border-radius: 18px 18px 0 0;      /* 위만 둥글게 */
+  padding: 16px;                     /* 내부 여백은 상황에 맞게 */
+  background: rgba(255,255,255,.95);
+  border: 1px solid #E6E9F0;
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+/* 가운데 점선 – glass의 맨 아래에 그려서 seam에 겹치게 */
+.glass::after{
+  /* 기존 border-top 제거 */
+  border-top: none !important;
+
+  content:"";
+  position:absolute;
+  left:16px;                 /* 좌/우 여백 */
+  right:16px;
+  bottom:-1px;               /* 아래 패널 테두리와 1px 겹치게 */
+  height:var(--cutline-weight);
+
+  background-image:
+    linear-gradient(to right,
+      var(--cutline-color) 0 var(--cutline-dash),
+      transparent var(--cutline-dash) calc(var(--cutline-dash) + var(--cutline-gap)));
+  background-size: calc(var(--cutline-dash) + var(--cutline-gap)) var(--cutline-weight);
+  background-repeat: repeat-x;
+  opacity:.95;
+  pointer-events:none;
+}
+
+/* 아래 큰 패널(입력/버튼 묶음) */
+.panel{
+  background:#fff;
+  border:1px solid #E6E9F0;
+  /* 위쪽 라운드는 없애고 아래만 둥글게 → 두 박스가 한 장처럼 보임 */
+  border-radius: 0 0 18px 18px;
+
+  /* 위로 1px 끌어올려 seam을 맞춤(점선과 테두리 겹침) */
+  margin-top:-1px;
+
+  padding:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+
+/* ───────── 연결부(둥근 모서리 + 점선) 패치 ───────── */
+
+/* 위 박스(유리 카드) – 아래쪽 모서리를 둥글게 유지 */
+.glass{
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+/* 아래 박스(입력 패널) – 위쪽 모서리만 둥글게 + 살짝 끌어올려 맞물리기 */
+.panel{
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  margin-top: -1px;     /* 위쪽으로 당겨서 두 박스가 맞물려 보이게 */
+  padding-top: 22px;     /* 내용이 점선과 너무 붙지 않도록 여백 보정 */
+}
+
+/* ===== Spaced dashed divider (띄엄띄엄) ===== */
+:root{
+  --cutline-color:#B7C4D6;   /* 점선 색 */
+  --cutline-weight:2px;      /* 굵기: 2~3px 권장 */
+  --cutline-dash:8px;        /* 대시(실선) 길이 */
+  --cutline-gap:18px;        /* 대시 사이 간격 ← 크게! (띄엄띄엄 효과) */
+}
+
+.cutline{
+  border:0;
+  height:0;
+  position:relative;
+  margin:14px 18px -8px;     /* 좌우 여백은 카드 라운드에 맞춰 조절 */
+}
+
+.cutline::before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:0;                      /* 흐릿하면 0.5px로 바꿔보면 더 또렷 */
+  height:var(--cutline-weight);
+  background-image:
+    linear-gradient(to right,
+      var(--cutline-color) 0 var(--cutline-dash),
+      transparent var(--cutline-dash) calc(var(--cutline-dash) + var(--cutline-gap)));
+  background-size: calc(var(--cutline-dash) + var(--cutline-gap)) var(--cutline-weight);
+  background-repeat: repeat-x;
+  opacity: 0.95;
+}
+
+/* === 점선(스티치) 간격 튜닝 - 기존 값 덮어쓰기 === */
+:root{
+  /* 실선 길이 / 간격 */
+  --cutline-dash:8px;  /* 10~14px 사이로 취향대로 */
+  --cutline-gap:6px;    /* 6~10px 사이로 취향대로 */
+}
+
+/* (선택) 살짝 더 또렷하게 보이게 */
+.glass::after{
+  height: var(--cutline-weight); /* 보통 2px */
+  bottom: -1.5px;                  /* 아래 패널 테두리와 1px 겹치기 유지 */
+}
+
+/* 상품명 한 줄만 위치 조정 */
+.info .product-line{
+  transform: translate(-1px, -3px); /* x, y (y만 바꾸면 위/아래) */
+}
+
+/* (선택) 라벨은 그대로 강조 유지 */
+.info .product-line b{
+  font-weight: 700;
+  color: #173A8B;
+}
+
+/* ===== 그룹/패널 기본 배치 ===== */
+.panel{
+  border:1px solid #E6E9F0;
+  border-radius: 18px 18px 18px 18px; /* 아래 둥근 모서리 */
+  background:#fff;
+  padding:16px 14px 18px;
+  margin-top:-1px; /* 위 유리박스 점선과 이음새 */
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+.groups{
+  display:flex;
+  flex-direction:column;
+  gap:14px; /* 그룹 간 기본 간격 */
+}
+.group{ position:relative; }
+
+/* 그룹 타이틀 공통 */
+.group-title{
+  font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Pretendard, sans-serif;
+  font-weight:700;
+  color:#0B2A55;
+  margin:0 0 8px 2px; /* 기본 여백 */
+}
+
+/* ===== 각 요소 개별 transform 조절(숫자만 바꿔서 X,Y 이동) ===== */
+/* 아이폰 타이틀 */
+.title--ios{ transform: translate(2px, 5px); }          /* X, Y */
+
+/* 아이폰: SM-DP+ 주소 */
+.field--smdp{ transform: translate(0px, 8px); }         /* X, Y */
+
+/* 아이폰: 활성화 코드 */
+.field--ios-act{ transform: translate(0px, 6px); }     /* X, Y */
+
+/* 안드로이드 타이틀 */
+.title--and{ transform: translate(2px, 10px); }         /* X, Y */
+
+/* 안드로이드: 활성화 코드 */
+.field--and-act{ transform: translate(0px, 12px); }     /* X, Y */
+
+/* (선택) 각 필드 간 기본 간격을 더 넓히고 싶으면 */
+.group .field{ margin-top:10px; }  /* 8~14px로 조절 */
+
+/* 패널 하단 요소와의 간격도 필요시 보정 가능 */
+.notice{ margin-top: 18px; transform: translate(0px, 10px); }
+.emph  { margin: 12px 0 10px; transform: translate(0px, 12px); }
+.data  { transform: translate(0px, 14px); }
+

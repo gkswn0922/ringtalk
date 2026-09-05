@@ -1,0 +1,32 @@
+{
+  "name": "ringtalk-esim-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "scheduler": "node src/orderSchedulerMain.js",
+    "scheduler:dev": "nodemon src/orderSchedulerMain.js",
+    "scheduler:once": "node src/orderSchedulerOnce.js"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "canvas": "^3.2.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "mysql2": "^3.12.0",
+    "qrcode": "^1.5.4",
+    "qrcode-with-logos": "^1.1.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSIM 상세 정보 - RingTalk</title>
+    <link rel="stylesheet" href="css/esim-detail-new.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 배경 애니메이션 -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+    </div>
+
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="header-title">eSIM 상세 정보</h1>
+            <button class="help-btn" onclick="openInstallGuide()">
+                <i class="fas fa-question-circle"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 컨테이너 -->
+    <main class="main-container">
+        <!-- eSIM 카드 -->
+        <div class="esim-card">
+            <div class="card-header">
+                <div class="esim-badge">
+                    <i class="fas fa-sim-card"></i>
+                    <span>eSIM</span>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span class="status-text">활성화 대기</span>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="qr-section">
+                    <div class="qr-info">
+                        <h2 class="qr-title">QR 코드가 도착했어요!</h2>
+                        <p class="qr-description">우측 QR코드를 스캔해서 설치하세요</p>
+                        
+                        <div class="customer-details">
+                            <div class="detail-item">
+                                <span class="detail-label">ICCID:</span>
+                                <span class="detail-value" id="iccid">89882470000012345678</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">고객명:</span>
+                                <span class="detail-value" id="customerName">홍길동</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="qr-container">
+                        <div class="qr-code-wrapper">
+                            <canvas id="qrCode" class="qr-code"></canvas>
+                            <div class="qr-overlay" onclick="enlargeQRCode()">
+                                <i class="fas fa-expand"></i>
+                                <span>확대보기</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 구분선 -->
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <!-- 활성화 코드 섹션 -->
+                <div class="activation-section">
+                    <div class="device-section">
+                        <div class="device-header">
+                            <i class="fab fa-apple"></i>
+                            <h3>iOS 아이폰</h3>
+                        </div>
+                        <div class="input-group">
+                            <label>SM-DP+ 주소</label>
+                            <div class="input-container">
+                                <input type="text" id="iosSmDp" readonly value="rsp.esimcase.com">
+                                <button class="copy-btn" onclick="copyToClipboard('iosSmDp')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>활성화 코드</label>
+                            <div class="input-container">
+                                <input type="text" id="iosActivationCode" readonly value="$H28E-3U6QI-O513K-90TON">
+                                <button class="copy-btn" onclick="copyToClipboard('iosActivationCode')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="device-section">
+                        <div class="device-header">
+                            <i class="fab fa-android"></i>
+                            <h3>Android 갤럭시</h3>
+                        </div>
+                        <div class="input-group">
+                            <label>활성화 코드</label>
+                            <div class="input-container">
+                                <input type="text" id="aosActivationCode" readonly value="LPA:1$rsp.esimcase.com$H28E-3U6QI-O513K-90TON">
+                                <button class="copy-btn" onclick="copyToClipboard('aosActivationCode')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 사용량 정보 -->
+                <div class="usage-section">
+                    <div class="usage-header">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>데이터 사용량</h3>
+                    </div>
+                    
+                    <div class="usage-status">
+                        <div class="status-message">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="status" id="usageStatus">상품 활성화 전입니다!</span>
+                        </div>
+                    </div>
+
+                    <div class="usage-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">누적 사용량</span>
+                            <span class="stat-value" id="totalUsed">0.00 GB</span>
+                        </div>
+                    </div>
+
+                    <div class="data-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                            <div class="progress-text" id="progressText">잔여 데이터 1.00GB</div>
+                        </div>
+                        <div class="progress-note">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>실 사용량과 다소 차이가 있을 수 있습니다</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="action-buttons">
+            <button class="action-btn primary" onclick="openInstallGuide()">
+                <i class="fas fa-book"></i>
+                <span>설치 가이드</span>
+            </button>
+            <button class="action-btn secondary" onclick="refreshData()">
+                <i class="fas fa-sync-alt"></i>
+                <span>새로고침</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">카카오톡 상담</div>
+                <div class="footer-time">09:00 - 23:00</div>
+            </div>
+            <div class="footer-section">
+                <div class="footer-title">고객센터</div>
+                <div class="footer-time">24시간 운영</div>
+            </div>
+            <div class="footer-section">
+                <div class="footer-title">이메일 문의</div>
+                <div class="footer-time">support@ringtalk.example</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 설치 가이드 모달 -->
+    <div id="installGuideModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-book"></i> eSIM 설치 가이드</h2>
+                <button class="close-btn" onclick="closeModal('installGuideModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-section">
+                    <h3><i class="fab fa-apple"></i> iOS 설치 방법</h3>
+                    <ol>
+                        <li>설정 > 셀룰러 > eSIM 추가를 선택합니다</li>
+                        <li>"QR 코드 사용"을 선택합니다</li>
+                        <li>제공된 QR 코드를 스캔합니다</li>
+                        <li>eSIM 프로필을 다운로드하고 활성화합니다</li>
+                        <li>데이터 로밍을 켜서 사용하세요</li>
+                    </ol>
+                </div>
+
+                <div class="guide-section">
+                    <h3><i class="fab fa-android"></i> Android 설치 방법</h3>
+                    <ol>
+                        <li>설정 > 연결 > SIM 카드 관리자를 선택합니다</li>
+                        <li>"eSIM 추가"를 선택합니다</li>
+                        <li>"QR 코드 스캔"을 선택합니다</li>
+                        <li>제공된 QR 코드를 스캔합니다</li>
+                        <li>eSIM 프로필을 다운로드하고 활성화합니다</li>
+                    </ol>
+                </div>
+
+                <div class="guide-section">
+                    <h3><i class="fas fa-lightbulb"></i> 유용한 팁</h3>
+                    <ul>
+                        <li>Wi-Fi 환경에서 설치하는 것을 권장합니다</li>
+                        <li>설치 중에는 다른 앱을 사용하지 마세요</li>
+                        <li>문제가 발생하면 기기를 재시작해보세요</li>
+                        <li>여전히 문제가 있다면 고객센터로 문의하세요</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 메시지 -->
+    <div id="toast" class="toast"></div>
+
+    <!-- 스크립트 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="js/esim-detail-new.js"></script>
+</body>
+</html>

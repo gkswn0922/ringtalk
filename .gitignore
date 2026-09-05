@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+target/
+*.class
+dist/
+build/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs (may contain customer PII - never commit)
+*.log
+logs/
+.pm2/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
